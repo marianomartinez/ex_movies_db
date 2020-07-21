@@ -1,0 +1,171 @@
+This command shows which packages I have installed already:
+$ npm list -g --depth
+// -g shows gloabl installations
+// --depth shows version
+
+----------
+
+
+
+
+After creating SRC and PUBLIC folders
+
+----------
+
+INITIALIZE NPM
+
+$ npm init -y
+
+This creates package.json
+. check "main" route
+. check main app name (usually app.js or index.js)
+. change "test" to "test": "nodemon src/index.js -e js,ejs,json" 
+.. this includes EJS as Template Engine
+. check author name
+
+
+----------
+
+INSTALL EXTERNAL PACKAGES
+
+
+Install EXPRESS
+
+$ npm i express
+. node_modules folder is created automatically
+
+
+Create .GITIGNORE file on root folder
+. add node_modules so it is not uploaded to git
+
+
+Install NODEMON
+
+$ npm i nodemon -D
+
+
+Install EJS as Template Engine
+
+$ npm i ejs
+
+
+Install METHOD-OVERRIDE (MIDDLEWARE for PUT (for JSON database editing))
+
+$ npm i method-OVERRIDE
+
+
+Install MULTER (for IMAGE of FILE uploading)
+
+$ npm i multer
+
+
+----------
+
+For use of external database engines
+------------------------------------
+
+
+Install SEQUELIZE Command Line Interface GLOBALLY !!!
+
+$ npm i -g sequelize-cli
+
+
+Install SEQUELIZE on this project
+
+$ npm i sequelize
+
+
+Install a DATABASE DRIVER
+$ npm i mysql2
+
+. other options are:
+$ npm install --save pg pg-hstore // Postgres
+$ npm install --save mysql2
+$ npm install --save mariadb
+$ npm install --save sqlite3
+$ npm install --save tedious // Microsoft SQL Server
+
+
+Create .SEQUELIZERC file on root folder
+! creating this file and code allows us to automatically create certain folders and files when running sequelize init
+. add default code (copy from sequelize.org)
+.. example below
+! add "module.exports = " to export the object
+
+...
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'database.json'), // config file, for connection to database
+  'models-path': path.resolve('db', 'models'), // database model files
+  'seeders-path': path.resolve('db', 'seeders'), // testing-stage data
+  'migrations-path': path.resolve('db', 'migrations') // migration files, automatically creates database on our project
+};
+...
+
+
+!!! Pero éste es el código recomendado por Dani !!!
+
+...
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('./src/database/config', 'config.js'), 
+  'models-path': path.resolve('./src/database/models'),
+  'seeders-path': path.resolve('./src/database/seeders'),
+  'migrations-path': path.resolve('./src/database/migrations')
+};
+...
+
+
+Now run SEQUELIZE INIT
+
+$ sequelize init
+
+. this creates the files and folders specified on .sequelizerc file
+
+
+Now update src/database/config/config.js database connection file
+
+. add "module.exports = " before the object (if using as JSON file skip this step)
+. check username
+. check password (for no password use null)
+. check database name ("database": "name")
+. check host IP address
+. set up "dialect" to the database engine on use ("mysql")
+
+
+
+
+
+
+
+----------
+
+0- Start XAMPP (Apache and MySQL)
+
+1- FROM MySQL - > Create a database on MySQL Workbench
+. create new schema in the connected server
+. create tables with columns and rules
+.. include createdAt, updatedAt, deletedAt (set as TIMESTAMP and default value as NULL)
+. apply
+. add some data on the tables
+
+
+----------------
+
+
+For SESSION and COOKIES
+
+Install EXPRESS VALIDATOR
+$ npm i express-validator
+
+Install EXPRESS SESSION
+$ npm i express-session
+
+Install COOKIE PARSER
+$ npm i cookie-parser
+
+Install BCRYPT
+$ npm i bcryptjs (or "bcrypt")
+

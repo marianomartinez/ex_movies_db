@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie details</title>
+</head>
+
+<body>
+    <h1>Details for <%= thisMovie.title %></h1>
+    <li>Rating: <%= thisMovie.rating %></li>
+    <li>Awards: <%= thisMovie.awards %></li>
+    <li>Release date: <%= thisMovie.release_date %></li>
+    <li>Length: <%= thisMovie.length %></li>
+    <li>Genre: <%= thisMovie.genre_id %></li>
+    <p><a href="/movies/edit/<%= thisMovie.id %>"><button>Edit this movie</button></a></p>
+    <p><a href="/movies/delete/<%= thisMovie.id %>"><button>Delete this movie</button></a></p>
+    <p><a href="/movies"><button>Back to movie index</button></a></p>
+</body>
+
+</html>

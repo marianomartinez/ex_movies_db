@@ -1,0 +1,2 @@
+Una vez que agreguemos un archivo a esta carpeta borrar este archivo.
+Está solo para asegurarme que se agregue la carpeta al repositorio.

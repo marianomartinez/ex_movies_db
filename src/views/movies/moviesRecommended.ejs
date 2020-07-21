@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Index</title>
+</head>
+
+<body>
+    <h1>Recommended movies</h1>
+    <ul>
+        <% recommendedMovies.forEach(movie => { %>
+            <li><a href="/movies/detail/<%= movie.id %>"><%= movie.id %> - <%= movie.title %></a></li>
+        <% }); %>
+    </ul>
+    <p><a href="/movies"><button>Back to movie index</button></a></p>
+</body>
+
+</html>

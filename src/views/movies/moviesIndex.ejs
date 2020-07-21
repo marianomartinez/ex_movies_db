@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Index</title>
+</head>
+
+<body>
+    <h1>Movies database</h1>
+    <p>
+        <form action="/movies/genreFilter" method="POST">
+            <select name="genreFilter" id="">
+                <option value="" disabled selected>- filter by genre - </option>
+                <% allGenres.forEach(genre => { %>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                    <% }); %>
+                </select>
+                <button>Filter by genre</button>
+            </form>
+        </p>
+    <p>
+        <form action="/movies/search" method="GET">
+            <input type="text" name="searchInput" maxlength="50" placeholder="Search...">
+            <button>Search GET</button>
+        </form>
+    </p>
+    <p>
+        <form action="/movies/search" method="POST">
+            <input type="text" name="searchInput" maxlength="50" placeholder="Search...">
+            <button>Search POST</button>
+            <input type="checkbox" name="order">Alphabetically ordered results
+        </form>
+    </p>
+    <p><a href="/movies/latest"><button>Latest releases</button></a></p>
+    <p><a href="/movies/recommended"><button>Recommended movies</button></a>
+    <p>
+        <form action="/movies/add" method="GET">
+            <button>Add a movie</button>
+        </form>
+    </p>
+        <ul>
+            <% allMovies.forEach(movie => { %>
+            <li><a href="/movies/detail/<%= movie.id %>"><%= movie.id %> - <%= movie.title %> <% if (movie.genre != null) { %> (<%= movie.genre.name %>) <% } %></a></li>
+        <% }); %>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie add</title>
+</head>
+
+<body>
+    <h1>Add a movie</h1>
+
+    <form action="/movies/create" method="POST">
+        <label for="title">Title </label>
+        <p><input type="text" name="title" id=""></p>
+        <label for="rating">Rating </label>
+        <p><input type="number" name="rating" id=""></p>
+        <label for="awards">Awards </label>
+        <p><input type="number" name="awards" id=""></p>
+        <label for="release_date">Release date </label>
+        <p><input type="date" name="release_date" id=""></p>
+        <label for="length">Length </label>
+        <p><input type="number" name="length" id=""></p>
+        <label for="genre_id">Genre ID </label>
+        <p><input type="number" name="genre_id" id=""></p>
+        <button type="submit">Add</button>
+    </form>
+    <p><a href="/movies"><button>Back to movie index</button></a></p>
+</body>
+
+</html>
