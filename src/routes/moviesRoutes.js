@@ -12,7 +12,7 @@ const path = require('path');
 const moviesController = require(path.resolve(__dirname, '..', 'controllers', 'moviesController.js'));
 
 // Web routes and their methods below
-router.get('/movies/index', moviesController.index);
+router.get('/movies', moviesController.index);
 router.get('/movies/detail/:id', moviesController.detail);
 router.get('/movies/add', moviesController.add);
 router.post('/movies/create', moviesController.create);
