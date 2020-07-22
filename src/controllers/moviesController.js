@@ -33,8 +33,13 @@ module.exports = {
         .catch(error => res.send(error))
     },
     add: function (req, res) {
-            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesAdd'))
-        // .catch(error => res.send(error))
+        let promGenres = Genres.findAll();
+        let promActors = Actors.findAll();
+        Promise
+        .all([promGenres, promActors])
+        .then(([allGenres, allActors]) => {
+            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesAdd'), {allGenres,allActors})})
+        .catch(error => res.send(error))
     },
     create: function (req, res) {
         Movies
@@ -48,15 +53,19 @@ module.exports = {
                 genre_id: req.body.genre_id
             }
         )
-            return res.redirect('/movies')
+        .then(()=> {
+            return res.redirect('/movies')})            
         .catch(error => res.send(error))
     },
     edit: function (req, res) {
         let movieId = req.params.id;
-        Movies
-        .findByPk(movieId)
-        .then(thisMovie => {
-            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesEdit'), {thisMovie})})
+        let promMovies = Movies.findByPk(movieId,{include: ['genre','actor']});
+        let promGenres = Genres.findAll();
+        let promActors = Actors.findAll();
+        Promise
+        .all([promMovies, promGenres, promActors])
+        .then(([thisMovie, allGenres, allActors]) => {
+            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesEdit'), {thisMovie,allGenres,allActors})})
         .catch(error => res.send(error))
     },
     update: function (req, res) {
@@ -74,7 +83,8 @@ module.exports = {
             {
                 where: {id: movieId}
             })
-            return res.redirect('/movies')
+        .then(()=> {
+            return res.redirect('/movies')})            
         .catch(error => res.send(error))
     },
     delete: function (req, res) {

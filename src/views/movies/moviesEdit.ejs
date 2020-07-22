@@ -21,8 +21,20 @@
         <p><input type="date" name="release_date" id="" value="<%= thisMovie.release_date %>"></p>
         <label for="length">Length </label>
         <p><input type="number" name="length" id="" value="<%= thisMovie.length %>"></p>
+        <label for="genre_id">Genre </label>
+        <p>
+            <select name="genre_id" id="">
+                <% allGenres.forEach(genre => { %>
+                <option value="<%= genre.id %>" <% if (thisMovie.genre.id == genre.id) { %><%= 'selected' %><% }; %>><%= genre.name %></option>
+                <% }); %>
+            </select>
+        </p>
+
+<!--
         <label for="genre_id">Genre ID </label>
         <p><input type="number" name="genre_id" id="" value="<%= thisMovie.genre_id %>"></p>
+    -->
+        
         <button type="submit">Apply changes</button>
     </form>
     <p><a href="/movies"><button>Back to movie index</button></a></p>
