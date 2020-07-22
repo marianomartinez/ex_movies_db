@@ -13,7 +13,15 @@
     <li>Awards: <%= thisMovie.awards %></li>
     <li>Release date: <%= thisMovie.release_date %></li>
     <li>Length: <%= thisMovie.length %></li>
-    <li>Genre: <%= thisMovie.genre_id %></li>
+    <li>Genre: <%= thisMovie.genre.name %></li>
+    <% if (thisMovie.actor.length > 0) { %>
+    <li>Featuring: </li>
+        <ul>
+            <% thisMovie.actor.forEach(actor => { %>
+            <li><%= actor.last_name %>, <%= actor.first_name %></li>
+            <% }) %>
+        </ul>
+    <% }; %>
     <p><a href="/movies/edit/<%= thisMovie.id %>"><button>Edit this movie</button></a></p>
     <p><a href="/movies/delete/<%= thisMovie.id %>"><button>Delete this movie</button></a></p>
     <p><a href="/movies"><button>Back to movie index</button></a></p>

@@ -28,6 +28,17 @@ module.exports = (sequelize, dataTypes) => {
         updatedAt: 'updated_at',
         deletedAt: false
     }
-    const actor = sequelize.define(alias, cols, config);
-    return actor
+    const Actor = sequelize.define(alias, cols, config);
+
+    Actor.associate = function (models) {
+        Actor.belongsToMany(models.Movies, {
+            as: "movie",
+            through: 'actor_movie',
+            foreignKey: 'actor_id',
+            otherKey: 'movie_id',
+            timestamps: false
+        })
+    }
+
+    return Actor
 };

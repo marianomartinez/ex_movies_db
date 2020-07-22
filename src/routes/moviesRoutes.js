@@ -23,6 +23,7 @@ router.post('/movies/delete/:id', moviesController.destroy);
 router.get('/movies/latest', moviesController.latest);
 router.get('/movies/recommended',moviesController.recommended);
 router.post('/movies/genreFilter', moviesController.genreFilter);
+router.post('/movies/actorFilter', moviesController.actorFilter);
 router.get('/movies/search', moviesController.searchGet);
 router.post('/movies/search', moviesController.searchPost);
 

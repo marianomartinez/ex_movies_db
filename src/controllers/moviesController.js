@@ -8,16 +8,18 @@ const genre = require('../database/models/genre');
 
 const Movies = db.Movies;
 const Genres = db.Genres;
+const Actors = db.Actors;
 
 // This syntax exports this module while defining this controller's methods
 module.exports = {
     index: function (req, res) {
-        let promMovies = Movies.findAll();
+        let promMovies = Movies.findAll({include: 'genre'});
         let promGenres = Genres.findAll();
+        let promActors = Actors.findAll();
         Promise
-        .all([promMovies, promGenres])
-        .then(function([allMovies, allGenres]) {
-            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesIndex'),{allMovies, allGenres})})
+        .all([promMovies, promGenres, promActors])
+        .then(function([allMovies, allGenres, allActors]) {
+            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesIndex'),{allMovies, allGenres, allActors})})
         .catch(error => res.send(error)) // !!! No se puede usar .catch sin .then + return !!!
         // !!! BUSCAR sobre "async await" !!!
         // !!! BUSCAR sobre "try catch" !!!
@@ -25,7 +27,7 @@ module.exports = {
     detail: function (req,res) {
         let movieId = req.params.id;
         Movies
-        .findByPk(movieId)
+        .findByPk(movieId,{include: ['genre','actor']})
         .then(thisMovie => {
             return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesDetail'),{thisMovie})})
         .catch(error => res.send(error))
@@ -114,6 +116,17 @@ module.exports = {
         .then(function ([sendGenre, filteredMovies]) {
             return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesGenreFiltered'), {filteredMovies,sendGenre})})
         .catch(error => res.send(error))
+    },
+    // Todavía no anda
+    actorFilter: function (req,res) {
+    //     let actorId = req.body.actorFilter;
+    //     let promActor = Actors.findByPk(actorId);
+    //     let promMovies = Movies.findAll({where: {actor_id: actorId}});
+    //     Promise
+    //     .all([promActor, promMovies])
+    //     .then(function ([sendActor, filteredMovies]) {
+    //         return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {filteredMovies,sendActor})})
+    //     .catch(error => res.send(error))
     },
     // Search via GET method
     searchGet: function (req,res) {
