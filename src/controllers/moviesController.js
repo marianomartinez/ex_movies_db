@@ -6,7 +6,7 @@ const db = require('../database/models/') // Requiero la base de datos
 const { Op } = require("sequelize");
 const genre = require('../database/models/genre');
 
-const Movies = db.Movies;
+const Movies = db.Movie;
 const Genres = db.Genres;
 const Actors = db.Actors;
 
@@ -129,14 +129,22 @@ module.exports = {
     },
     // Todavía no anda
     actorFilter: function (req,res) {
-    //     let actorId = req.body.actorFilter;
-    //     let promActor = Actors.findByPk(actorId);
-    //     let promMovies = Movies.findAll({where: {actor_id: actorId}});
-    //     Promise
-    //     .all([promActor, promMovies])
-    //     .then(function ([sendActor, filteredMovies]) {
-    //         return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {filteredMovies,sendActor})})
-    //     .catch(error => res.send(error))
+        let actorId = req.body.actorFilter;
+        Actors
+        .findByPk(actorId)
+        .then(actor => {
+            Movies
+            .findAll({include: ['actor_movie','actor']},{where: {actor_id: actorId}})
+        })
+
+        // let promActor = Actors.findByPk(actorId);
+        // let promMovies = Movies.findAll({where: {actor_id: actorId}});
+        // Promise
+        // .all([promActor, promMovies])
+
+        .then(function ([actor,filteredMovies]) {
+            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {actor,filteredMovies})})
+        .catch(error => res.send(error))
     },
     // Search via GET method
     searchGet: function (req,res) {
