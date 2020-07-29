@@ -7,8 +7,8 @@ const { Op } = require("sequelize");
 const genre = require('../database/models/genre');
 
 const Movies = db.Movie;
-const Genres = db.Genres;
-const Actors = db.Actors;
+const Genres = db.Genre;
+const Actors = db.Actor;
 
 // This syntax exports this module while defining this controller's methods
 module.exports = {
