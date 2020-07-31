@@ -28,11 +28,11 @@ module.exports = (sequelize, dataTypes) => {
         updatedAt: 'updated_at',
         deletedAt: false
     }
-    const Actor = sequelize.define(alias, cols, config);
+    const Actor = sequelize.define(alias, cols, config); 
 
     Actor.associate = function (models) {
         Actor.belongsToMany(models.Movie, { // models.Movies -> Movies es el valor de alias en movie.js
-            as: "movie",
+            as: "movies",
             through: 'actor_movie',
             foreignKey: 'actor_id',
             otherKey: 'movie_id',

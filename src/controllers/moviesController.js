@@ -4,11 +4,14 @@ const path = require('path');
 const db = require('../database/models/') // Requiero la base de datos
 
 const { Op } = require("sequelize");
+// const Op = db.Sequelize.Op; // It's the same as above
+
 const genre = require('../database/models/genre');
 
 const Movies = db.Movie;
 const Genres = db.Genre;
 const Actors = db.Actor;
+// const {Movies, Genres, Actors} = require('../database/models/'); // is the same as above
 
 // This syntax exports this module while defining this controller's methods
 module.exports = {
@@ -27,7 +30,7 @@ module.exports = {
     detail: function (req,res) {
         let movieId = req.params.id;
         Movies
-        .findByPk(movieId,{include: ['genre','actor']})
+        .findByPk(movieId,{include: ['genre','actors']})
         .then(thisMovie => {
             return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesDetail'),{thisMovie})})
         .catch(error => res.send(error))
@@ -59,7 +62,7 @@ module.exports = {
     },
     edit: function (req, res) {
         let movieId = req.params.id;
-        let promMovies = Movies.findByPk(movieId,{include: ['genre','actor']});
+        let promMovies = Movies.findByPk(movieId,{include: ['genre','actors']});
         let promGenres = Genres.findAll();
         let promActors = Actors.findAll();
         Promise
@@ -134,7 +137,7 @@ module.exports = {
         .findByPk(actorId)
         .then(actor => {
             Movies
-            .findAll({include: ['actor_movie','actor']},{where: {actor_id: actorId}})
+            .findAll({include: ['actor_movie','actors']},{where: {actor_id: actor.id}})
         })
 
         // let promActor = Actors.findByPk(actorId);

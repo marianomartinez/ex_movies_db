@@ -34,7 +34,7 @@ module.exports = (sequelize, dataTypes) => {
 
     Genre.associate = function(models) {
         Genre.hasMany(models.Movie, { // models.Movies -> Movies es el valor de alias en movie.js
-            as: "movies",
+            as: "movies", // El nombre del modelo pero en plural
             foreignKey: "genre_id"
         })
     }

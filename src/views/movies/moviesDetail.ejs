@@ -14,10 +14,10 @@
     <li>Release date: <%= thisMovie.release_date %></li>
     <li>Length: <%= thisMovie.length %></li>
     <li>Genre: <%= thisMovie.genre.name %></li>
-    <% if (thisMovie.actor.length > 0) { %>
+    <% if (thisMovie.actors.length > 0) { %>
     <li>Featuring: </li>
         <ul>
-            <% thisMovie.actor.forEach(actor => { %>
+            <% thisMovie.actors.forEach(actor => { %>
             <li><%= actor.last_name %>, <%= actor.first_name %></li>
             <% }) %>
         </ul>
