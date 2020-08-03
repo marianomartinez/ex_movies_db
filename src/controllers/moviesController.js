@@ -131,7 +131,12 @@ module.exports = {
         .catch(error => res.send(error))
     },
     // Todavía no anda
-    actorFilter: function (req,res) {
+    actorFilter: function (req, res) {
+        // Solución de Edu, sin el function de arriba. Funciona pero no sé cómo hacer render de la vista.
+        // async (req, res) => res.send(await Actors.findByPk(req.body.actorFilter, {include: ['movies']})),
+
+
+
         let actorId = req.body.actorFilter;
         Actors
         .findByPk(actorId)

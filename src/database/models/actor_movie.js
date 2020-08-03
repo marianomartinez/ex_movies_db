@@ -4,7 +4,7 @@
 
 
 module.exports = (sequelize, dataTypes) => {
-    let alias = 'actor_movie';
+    let alias = 'ActorMovie';
     let cols = {
         id: {
             type: dataTypes.BIGINT(10).UNSIGNED,
@@ -28,17 +28,17 @@ module.exports = (sequelize, dataTypes) => {
         updatedAt: 'updated_at',
         deletedAt: false
     }
-    const actor_movie = sequelize.define(alias, cols, config);
+    const ActorMovie = sequelize.define(alias, cols, config);
 
-    actor_movie.associate = function (models) {
-        actor_movie.belongsToMany(models.Actor, { // models.Actors -> Actors es el valor de alias en actor.js
+    ActorMovie.associate = function (models) {
+        ActorMovie.belongsToMany(models.Actor, { // models.Actors -> Actors es el valor de alias en actor.js
             as: "actor",
             through: 'actor_movie',
             foreignKey: 'actor_id',
             otherKey: 'movie_id',
             timestamps: false
         })
-        actor_movie.belongsToMany(models.Movie, { // models.Movies -> Movies es el valor de alias en movie.js
+        ActorMovie.belongsToMany(models.Movie, { // models.Movies -> Movies es el valor de alias en movie.js
             as: "movie",
             through: 'actor_movie',
             foreignKey: 'movie_id',
@@ -47,5 +47,5 @@ module.exports = (sequelize, dataTypes) => {
         })
     }
 
-    return actor_movie
+    return ActorMovie
 };
