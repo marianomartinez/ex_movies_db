@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <h1>Movies with <%= sendActor.first_name %> <%= sendActor.last_name %></h1>
+    <h1>Movies with <%= moviesByActor.first_name %> <%= moviesByActor.last_name %></h1>
     <ul>
-        <% filteredMovies.forEach(movie => { %>
+        <% moviesByActor.movies.forEach(movie => { %>
         <li><a href="/movies/detail/<%= movie.id %>"><%= movie.id %> - <%= movie.title %></a></li>
         <% }); %>
     </ul>

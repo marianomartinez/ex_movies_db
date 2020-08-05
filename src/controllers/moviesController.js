@@ -131,29 +131,29 @@ module.exports = {
         .catch(error => res.send(error))
     },
     // Todavía no anda
-    actorFilter: function (req, res) {
-        // Solución de Edu, sin el function de arriba. Funciona pero no sé cómo hacer render de la vista.
-        // async (req, res) => res.send(await Actors.findByPk(req.body.actorFilter, {include: ['movies']})),
+    actorFilter: // function (req, res) {
+        // 1- Esta forma incluye el function de arriba
+        // Actors
+        // .findByPk(req.body.actorFilter, {include: ['movies']})
+        // .then(filteredMovies => {
+        //     return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {filteredMovies})})
 
+        // 2- Solución de Edu, es lo mismo de arriba pero con función asíncrona
+        async (req, res) => {
+        let moviesByActor = await Actors.findByPk(req.body.actorFilter, {include: ['movies']})
+        // return res.send(moviesByActor)
+        return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {moviesByActor})
+        },
 
-
-        let actorId = req.body.actorFilter;
-        Actors
-        .findByPk(actorId)
-        .then(actor => {
-            Movies
-            .findAll({include: ['actor_movie','actors']},{where: {actor_id: actor.id}})
-        })
-
-        // let promActor = Actors.findByPk(actorId);
-        // let promMovies = Movies.findAll({where: {actor_id: actorId}});
-        // Promise
-        // .all([promActor, promMovies])
-
-        .then(function ([actor,filteredMovies]) {
-            return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {actor,filteredMovies})})
-        .catch(error => res.send(error))
-    },
+        // 3- Esta era mi solución inicial, pero por algún motivo no funciona
+        // Movies
+        // .findAll({include: ['actors']},{where: {actor_id: req.body.actorFilter}})
+        // .then(filteredMovies => {
+        //     return res.send(filteredMovies)
+        //     return res.render(path.resolve(__dirname, '..', 'views', 'movies', 'moviesActorFiltered'), {filteredMovies})})
+        //     .catch(error => res.send(error))
+        
+        // },
     // Search via GET method
     searchGet: function (req,res) {
         let searchInput = req.query.searchInput;
